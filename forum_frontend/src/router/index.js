@@ -17,6 +17,12 @@ const routes = [
     meta: {title: '注册'}
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/auth/Login'),
+    meta: {title: '登录'}
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import('@/views/error/404'),
@@ -28,6 +34,12 @@ const routes = [
     hidden: true
   }
 ]
+
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err);
+  //捕捉异常，就不再抛出异常
+};
 
 const router = new VueRouter({
   routes

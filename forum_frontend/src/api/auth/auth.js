@@ -7,3 +7,25 @@ export function userRegister(userDTO) {
     data: userDTO
   })
 }
+
+export function login(data) {
+    return request({
+      url: '/ums/user/login',
+      method: 'post',
+      data 
+    })
+}
+
+export function getUserInfo(){
+    return request({
+      url: '/ums/user/info',
+      method: 'get'
+    })
+}
+
+// 前台用户注销
+export function logout() {
+    return request({
+      url: '/ums/user/logout'
+    })
+}
