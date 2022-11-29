@@ -3,14 +3,19 @@ package com.larry.forum.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.larry.forum.common.exception.ApiAsserts;
+import com.larry.forum.mapper.BmsTopicMapper;
 import com.larry.forum.mapper.UmsUserMapper;
 import com.larry.forum.model.dto.LoginDTO;
 import com.larry.forum.model.dto.RegisterDTO;
+import com.larry.forum.model.entity.BmsPost;
 import com.larry.forum.model.entity.UmsUser;
+import com.larry.forum.model.vo.ProfileVO;
 import com.larry.forum.service.IUmsUserService;
 import com.larry.forum.utils.MD5Utils;
 import com.larry.forum.jwt.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -23,6 +28,8 @@ import java.util.Date;
 @Transactional(rollbackFor = Exception.class)
 public class IUmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> implements IUmsUserService {
 
+    @Autowired
+    private BmsTopicMapper bmsTopicMapper;
 
     @Override
     public UmsUser executeRegister(RegisterDTO dto) {
@@ -66,5 +73,17 @@ public class IUmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> imp
             log.warn("用户不存在or密码验证失败=======>{}", dto.getUsername());
         }
         return token;
+    }
+
+    @Override
+    public ProfileVO getUserProfile(String id) {
+        ProfileVO profile = new ProfileVO();
+        UmsUser user = baseMapper.selectById(id);
+        BeanUtils.copyProperties(user, profile);
+        // 用户文章数
+        int count = bmsTopicMapper.selectCount(new LambdaQueryWrapper<BmsPost>().eq(BmsPost::getUserId, id));
+        profile.setTopicCount(count);
+
+        return profile;
     }
 }

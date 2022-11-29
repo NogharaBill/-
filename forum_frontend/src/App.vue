@@ -7,7 +7,7 @@
       <div class="container context">
           <router-view :key="this.$route.fullPath"></router-view>
       </div>
-
+  
       <div>
         <Footer></Footer>
       </div>
@@ -16,9 +16,17 @@
   
   <script>
   import Header from "@/components/Layout/Header";
-  import Footer from '@/components/Layout/Footer.vue'
+  import Footer from '@/components/Layout/Footer.vue';
+  
   export default {
     name: "App",
-    components: { Header, Footer },
+    components: { Header , Footer },
   };
   </script>
+  
+  <style scoped>
+  .container {
+    min-height: 500px;
+  }
+  </style>
+  

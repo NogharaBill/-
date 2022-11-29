@@ -11,9 +11,12 @@
     "buefy": "^0.9.22",
     "core-js": "^3.8.3",
     "darkreader": "^4.9.58",
+    "date-fns": "^2.29.3",
+    "dayjs": "^1.11.6",
     "element-ui": "^2.15.12",
     "js-cookie": "^3.0.1",
     "nprogress": "^0.2.0",
+    "vditor": "^3.8.18",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
