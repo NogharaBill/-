@@ -2,7 +2,7 @@
     <footer class="footer has-text-grey-light has-background-grey-darker">
       <div class="container">
         <div class="">
-          <span>简洁、实用、美观</span>
+          <span>嘻嘻</span>
   
           <span style="float: right">
             <router-link :to="{path:'/admin/login'}">
