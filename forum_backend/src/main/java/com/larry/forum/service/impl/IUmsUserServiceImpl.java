@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.larry.forum.common.exception.ApiAsserts;
 import com.larry.forum.mapper.BmsTopicMapper;
 import com.larry.forum.mapper.UmsUserMapper;
+import com.larry.forum.mapper.BmsFollowMapper;
 import com.larry.forum.model.dto.LoginDTO;
 import com.larry.forum.model.dto.RegisterDTO;
 import com.larry.forum.model.entity.BmsPost;
+import com.larry.forum.model.entity.BmsFollow;
 import com.larry.forum.model.entity.UmsUser;
 import com.larry.forum.model.vo.ProfileVO;
 import com.larry.forum.service.IUmsUserService;
@@ -30,6 +32,9 @@ public class IUmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> imp
 
     @Autowired
     private BmsTopicMapper bmsTopicMapper;
+
+    @Autowired
+    private BmsFollowMapper bmsFollowMapper;
 
     @Override
     public UmsUser executeRegister(RegisterDTO dto) {
@@ -80,6 +85,13 @@ public class IUmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> imp
         ProfileVO profile = new ProfileVO();
         UmsUser user = baseMapper.selectById(id);
         BeanUtils.copyProperties(user, profile);
+        // 用户文章数
+        int count = bmsTopicMapper.selectCount(new LambdaQueryWrapper<BmsPost>().eq(BmsPost::getUserId, id));
+        profile.setTopicCount(count);
+
+        // 粉丝数
+        int followers = bmsFollowMapper.selectCount((new LambdaQueryWrapper<BmsFollow>().eq(BmsFollow::getParentId, id)));
+        profile.setFollowerCount(followers);
 
         return profile;
     }
