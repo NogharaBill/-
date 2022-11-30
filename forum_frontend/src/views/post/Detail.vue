@@ -3,13 +3,17 @@
     <!--文章详情-->
     <div class="column is-three-quarters">
       <!--主题-->
-      <el-card class="box-card" shadow="never">
-        <div slot="header" class="has-text-centered">
+      <el-card
+        class="box-card"
+        shadow="never"
+      >
+        <div
+          slot="header"
+          class="has-text-centered"
+        >
           <p class="is-size-5 has-text-weight-bold">{{ topic.title }}</p>
           <div class="has-text-grey is-size-7 mt-3">
-            <span>{{
-              dayjs(topic.createTime).format("YYYY/MM/DD HH:mm:ss")
-            }}</span>
+            <span>{{ dayjs(topic.createTime).format('YYYY/MM/DD HH:mm:ss') }}</span>
             <el-divider direction="vertical" />
             <span>发布者：{{ topicUser.alias }}</span>
             <el-divider direction="vertical" />
@@ -37,91 +41,100 @@
               </b-taglist>
             </p>
           </div>
-          <div v-if="token && user.id === topicUser.id" class="level-right">
+          <div
+            v-if="token && user.id === topicUser.id"
+            class="level-right"
+          >
             <router-link
               class="level-item"
-              :to="{ name: 'topic-edit', params: { id: topic.id } }"
+              :to="{name:'topic-edit',params: {id:topic.id}}"
             >
               <span class="tag">编辑</span>
             </router-link>
             <a class="level-item">
-              <span class="tag" @click="handleDelete(topic.id)">删除</span>
+              <span
+                class="tag"
+                @click="handleDelete(topic.id)"
+              >删除</span>
             </a>
           </div>
         </nav>
       </el-card>
 
     </div>
+
     <div class="column">
-      作者信息
+        作者信息
     </div>
   </div>
 </template>
-  
-  <script>
-import { deleteTopic, getTopic } from "@/api/post";
-import { mapGetters } from "vuex";
-import Vditor from "vditor";
-import "vditor/dist/index.css";
+
+<script>
+import { deleteTopic, getTopic } from '@/api/post'
+import { mapGetters } from 'vuex'
+
+import Vditor from 'vditor'
+import 'vditor/dist/index.css'
 
 export default {
-  name: "TopicDetail",
+  name: 'TopicDetail',
   computed: {
-    ...mapGetters(["token", "user"]),
+    ...mapGetters([
+      'token','user'
+    ])
   },
   data() {
     return {
       flag: false,
       topic: {
-        content: "",
-        id: this.$route.params.id,
+        content: '',
+        id: this.$route.params.id
       },
       tags: [],
-      topicUser: {},
-    };
+      topicUser: {}
+    }
   },
   mounted() {
-    this.fetchTopic();
+    this.fetchTopic()
   },
   methods: {
     renderMarkdown(md) {
-      Vditor.preview(document.getElementById("preview"), md, {
-        hljs: { style: "github" },
-      });
+      Vditor.preview(document.getElementById('preview'), md, {
+        hljs: { style: 'github' }
+      })
     },
     // 初始化
     async fetchTopic() {
-      getTopic(this.$route.params.id).then((response) => {
-        const { data } = response;
-        document.title = data.topic.title;
+      getTopic(this.$route.params.id).then(response => {
+        const { data } = response
+        document.title = data.topic.title
 
-        this.topic = data.topic;
-        this.tags = data.tags;
-        this.topicUser = data.user;
+        this.topic = data.topic
+        this.tags = data.tags
+        this.topicUser = data.user
         // this.comments = data.comments
-        this.renderMarkdown(this.topic.content);
-        this.flag = true;
-      });
+        this.renderMarkdown(this.topic.content)
+        this.flag = true
+      })
     },
     handleDelete(id) {
-      deleteTopic(id).then((value) => {
-        const { code, message } = value;
-        alert(message);
+      deleteTopic(id).then(value => {
+        const { code, message } = value
+        alert(message)
 
         if (code === 200) {
           setTimeout(() => {
-            this.$router.push({ path: "/" });
-          }, 500);
+            this.$router.push({ path: '/' })
+          }, 500)
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
-  
-  <style>
+
+<style>
 #preview {
   min-height: 300px;
 }
 </style>
-  

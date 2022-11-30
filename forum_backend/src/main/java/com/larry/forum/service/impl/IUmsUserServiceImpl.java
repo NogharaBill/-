@@ -80,9 +80,6 @@ public class IUmsUserServiceImpl extends ServiceImpl<UmsUserMapper, UmsUser> imp
         ProfileVO profile = new ProfileVO();
         UmsUser user = baseMapper.selectById(id);
         BeanUtils.copyProperties(user, profile);
-        // 用户文章数
-        int count = bmsTopicMapper.selectCount(new LambdaQueryWrapper<BmsPost>().eq(BmsPost::getUserId, id));
-        profile.setTopicCount(count);
 
         return profile;
     }

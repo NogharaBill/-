@@ -16,16 +16,18 @@ export function login(data) {
     })
 }
 
+
 export function getUserInfo(){
-    return request({
-      url: '/ums/user/info',
-      method: 'get'
-    })
+  return request({
+    url: '/ums/user/info',
+    method: 'get'
+  })
 }
+
 
 // 前台用户注销
 export function logout() {
-    return request({
-      url: '/ums/user/logout'
-    })
+  return request({
+    url: '/ums/user/logout'
+  })
 }

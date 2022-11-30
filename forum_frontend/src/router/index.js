@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: () => import('@/views/Home')
   },
   {
@@ -47,7 +46,6 @@ const routes = [
     redirect: '/404',
     hidden: true
   }
-   
 ]
 
 const originalPush = VueRouter.prototype.push;

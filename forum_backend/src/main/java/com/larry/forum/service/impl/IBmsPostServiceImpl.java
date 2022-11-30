@@ -40,7 +40,7 @@ public class IBmsPostServiceImpl extends ServiceImpl<BmsTopicMapper, BmsPost> im
 
     @Autowired
     @Lazy
-    private com.larry.forum.service.IBmsTagService iBmsTagService;
+    private IBmsTagService iBmsTagService;
 
     @Autowired
     private IUmsUserService iUmsUserService;
@@ -52,14 +52,6 @@ public class IBmsPostServiceImpl extends ServiceImpl<BmsTopicMapper, BmsPost> im
         // 查询话题
         Page<PostVO> iPage = this.baseMapper.selectListAndPage(page, tab);
         // 查询话题的标签
-        iPage.getRecords().forEach(topic -> {
-            List<BmsTopicTag> topicTags = IBmsTopicTagService.selectByTopicId(topic.getId());
-            if (!topicTags.isEmpty()) {
-                List<String> tagIds = topicTags.stream().map(BmsTopicTag::getTagId).collect(Collectors.toList());
-                List<BmsTag> tags = bmsTagMapper.selectBatchIds(tagIds);
-                topic.setTags(tags);
-            }
-        });
         return iPage;
     }
 
@@ -84,8 +76,12 @@ public class IBmsPostServiceImpl extends ServiceImpl<BmsTopicMapper, BmsPost> im
 
         // 标签
         if (!ObjectUtils.isEmpty(dto.getTags())) {
+            List<String> newtags = new ArrayList<>();
+            for(String str : dto.getTags()){
+                newtags.add(str.replace("#",""));
+            }
             // 保存标签
-            List<BmsTag> tags = iBmsTagService.insertTags(dto.getTags());
+            List<BmsTag> tags = iBmsTagService.insertTags(newtags);
             // 处理标签与话题的关联
             IBmsTopicTagService.createTopicTag(topic.getId(), tags);
         }

@@ -7,6 +7,8 @@ import com.larry.forum.model.entity.BmsPost;
 import com.larry.forum.model.entity.UmsUser;
 import com.larry.forum.model.vo.PostVO;
 import com.larry.forum.service.IBmsPostService;
+import com.larry.forum.service.IBmsTagService;
+import com.larry.forum.service.IBmsTopicTagService;
 import com.larry.forum.service.IUmsUserService;
 import com.vdurmont.emoji.EmojiParser;
 import org.springframework.util.Assert;
@@ -28,9 +30,14 @@ public class BmsPostController extends BaseController {
 
     @Resource
     private IBmsPostService iBmsPostService;
-
     @Resource
     private IUmsUserService umsUserService;
+
+    @Resource
+    private IBmsTopicTagService iBmsTopicTagService;
+
+    @Resource
+    private IBmsTagService iBmsTagService;
 
     @GetMapping("/list")
     public ApiResult<Page<PostVO>> list(@RequestParam(value = "tab", defaultValue = "latest") String tab,
@@ -51,8 +58,6 @@ public class BmsPostController extends BaseController {
     @GetMapping()
     public ApiResult<Map<String, Object>> view(@RequestParam("id") String id) {
         Map<String, Object> map = iBmsPostService.viewTopic(id);
-        System.out.println("这是一个map");
-        System.out.println(map);
         return ApiResult.success(map);
     }
 

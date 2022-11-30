@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public abstract class IBmsTagServiceImpl extends ServiceImpl<BmsTagMapper, BmsTag> implements IBmsTagService {
+public class IBmsTagServiceImpl extends ServiceImpl<BmsTagMapper, BmsTag> implements IBmsTagService {
 
     @Autowired
     private com.larry.forum.service.IBmsTopicTagService IBmsTopicTagService;
