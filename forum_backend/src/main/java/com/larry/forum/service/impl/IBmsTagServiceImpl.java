@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
 @Service
 public class IBmsTagServiceImpl extends ServiceImpl<BmsTagMapper, BmsTag> implements IBmsTagService {
 
@@ -39,6 +40,17 @@ public class IBmsTagServiceImpl extends ServiceImpl<BmsTagMapper, BmsTag> implem
             tagList.add(tag);
         }
         return tagList;
+    }
+
+    @Override
+    public Page<BmsPost> selectTopicsByTagId(Page<BmsPost> topicPage, String id) {
+
+        // 获取关联的话题ID
+        Set<String> ids = IBmsTopicTagService.selectTopicIdsByTagId(id);
+        LambdaQueryWrapper<BmsPost> wrapper = new LambdaQueryWrapper<>();
+        wrapper.in(BmsPost::getId, ids);
+
+        return IBmsPostService.page(topicPage, wrapper);
     }
 
 

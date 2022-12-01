@@ -10,5 +10,6 @@ import java.util.Set;
 
 @Repository
 public interface BmsTopicTagMapper extends BaseMapper<BmsTopicTag> {
-
+    /*根据标签获得话题ID集合*/
+    Set<String> getTopicIdsByTagId(@Param("id") String id);
 }
