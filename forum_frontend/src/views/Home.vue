@@ -11,15 +11,15 @@
     </div>
   </div>
 </template>
-
+  
 <script>
 import { getBillboard } from "@/api/billboard";
-import CardBar from "@/views/card/CardBar"
-import PostList from '@/views/post/Index'
+import CardBar from "@/views/card/CardBar";
+import PostList from "@/views/post/Index";
 
 export default {
   name: "Home",
-  components: {CardBar, TopicList: PostList},
+  components: { CardBar, TopicList: PostList },
   data() {
     return {
       billboard: {

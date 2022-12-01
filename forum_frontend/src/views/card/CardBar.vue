@@ -1,36 +1,22 @@
 <template>
-  <div >
+    <section>
+      <!--是否登录-->
+      <login-welcome />
   
-    <LoginWelcome></LoginWelcome>
-    <Tip></Tip> 
-    <Promotion></Promotion>
-    
-  </div>
-
-</template>
-
-
-
-<script>
-import LoginWelcome from  '@/views/card/LoginWelcome'
-import Promotion from  '@/views/card/Promotion'
-import Tip from  '@/views/card/Tip'
-
-
-export default {
-  name: 'TopicList',
-  components : {LoginWelcome,Promotion , Tip},
-  data() {
-    return {
-      
-    }
-  },
-  created() {
-    
-  },
-  methods : {
-    
+      <!--今日赠言-->
+      <tip-card />
+  
+      <!--资源推介-->
+      <PromotionCard />
+    </section>
+  </template>
+  
+  <script>
+  import TipCard from '@/views/card/Tip'
+  import PromotionCard from '@/views/card/Promotion'
+  import LoginWelcome from '@/views/card/LoginWelcome'
+  export default {
+    name: 'CardBar',
+    components: { LoginWelcome, PromotionCard, TipCard }
   }
-  
-}
-</script>
+  </script>

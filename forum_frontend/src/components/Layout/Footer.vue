@@ -5,9 +5,7 @@
         <span>这是一个小小的论坛网站</span>
 
         <span style="float: right">
-          <router-link :to="{path:'/admin/login'}">
-            管理员登录
-          </router-link>
+          <router-link :to="{ path: '/admin/login' }"> 管理员登录 </router-link>
           |
           <a href="/?lang=zh_CN">中文</a> |
           <a href="/?lang=en_US">English</a>
@@ -29,32 +27,29 @@
     <back-top></back-top>
   </footer>
 </template>
-
+  
 <script>
 import BackTop from "@/components/Backtop/BackTop";
-
 export default {
   name: "Footer",
   components: {
-    BackTop
+    BackTop,
   },
   data() {
     return {
-      title: "© " + new Date().getFullYear() + ' 软件工程小组',
-      author: '软件工程小组',
+      title: "© " + new Date().getFullYear() + " 软工小组",
+      author: "软工小组",
     };
   },
 };
 </script>
-
+  
 <style scoped>
-
 footer {
   margin-top: 120px;
   height: 150px;
 }
-footer a{
+footer a {
   color: #bfbfbf;
 }
-
 </style>

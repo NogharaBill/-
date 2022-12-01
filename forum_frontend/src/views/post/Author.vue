@@ -2,12 +2,12 @@
     <section id="author">
       <el-card class="" shadow="never">
         <div slot="header">
-          <span class="has-text-weight-bold">✡ 关于作者</span>
+          <span class="has-text-weight-bold">👨‍💻 关于作者</span>
         </div>
         <div class="has-text-centered">
           <p class="is-size-5 mb-5">
             <router-link :to="{ path: `/member/${user.username}/home` }">
-              {{ user.alias }} <!--<span class="is-size-7 has-text-grey">{{ '@' + user.username }}</span>-->
+              {{ user.alias }} <span class="is-size-7 has-text-grey">{{ '@' + user.username }}</span>
             </router-link>
           </p>
           <div class="columns is-mobile">
@@ -99,6 +99,4 @@
   </script>
   
   <style scoped>
-  
   </style>
-  
