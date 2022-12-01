@@ -60,14 +60,19 @@
           </div>
         </nav>
       </el-card>
-
+      
+      <lv-comments :slug="topic.id" /> 
     </div>
-
     <div class="column">
         <!--作者-->
       <Author
         v-if="flag"
         :user="topicUser"
+      />
+      <!--推荐-->
+      <Recommend
+        v-if="flag"
+        :topic-id="topic.id"
       />
     </div>
   </div>
@@ -77,13 +82,15 @@
 import { deleteTopic, getTopic } from '@/api/post'
 import { mapGetters } from 'vuex'
 import Author from '@/views/post/Author'
+import Recommend from '@/views/post/Recommend'
+import LvComments from '@/components/Comment/Comments'
 
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
 
 export default {
   name: 'TopicDetail',
-  components: { Author },
+  components: { Author, Recommend, LvComments },
   computed: {
     ...mapGetters([
       'token','user'
