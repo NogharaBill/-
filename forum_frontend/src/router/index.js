@@ -57,6 +57,27 @@ const routes = [
     component: () => import('@/views/tag/Tag'),
     meta: { title: '主题列表' }
   },
+  // 检索
+  {
+    name: 'search',
+    path: '/search',
+    component: () => import('@/views/Search'),
+    meta: { title: '检索' }
+  },
+  // 用户主页
+  {
+    name: 'user',
+    path: '/member/:username/home',
+    component: () => import('@/views/user/Profile'),
+    meta: { title: '用户主页' }
+  },
+  // 用户设置
+  {
+    name: 'user-setting',
+    path: '/member/:username/setting',
+    component: () => import('@/views/user/Setting'),
+    meta: { title: '设置', requireAuth: true }
+  },
   {
     path: '*',
     redirect: '/404',

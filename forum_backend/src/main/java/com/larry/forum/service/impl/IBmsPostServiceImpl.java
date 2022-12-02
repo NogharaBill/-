@@ -128,4 +128,23 @@ public class IBmsPostServiceImpl extends ServiceImpl<BmsTopicMapper, BmsPost> im
     public List<BmsPost> getRecommend(String id) {
         return this.baseMapper.selectRecommend(id);
     }
+    @Override
+    public Page<PostVO> searchByKey(String keyword, Page<PostVO> page) {
+        // 查询话题
+        Page<PostVO> iPage = this.baseMapper.searchByKey(page, keyword);
+        // 查询话题的标签
+        setTopicTags(iPage);
+        return iPage;
+    }
+
+    private void setTopicTags(Page<PostVO> iPage) {
+        iPage.getRecords().forEach(topic -> {
+            List<BmsTopicTag> topicTags = IBmsTopicTagService.selectByTopicId(topic.getId());
+            if (!topicTags.isEmpty()) {
+                List<String> tagIds = topicTags.stream().map(BmsTopicTag::getTagId).collect(Collectors.toList());
+                List<BmsTag> tags = bmsTagMapper.selectBatchIds(tagIds);
+                topic.setTags(tags);
+            }
+        });
+    }
 }

@@ -33,7 +33,7 @@
               v-model="searchKey"
               class="s_input"
               width="80%"
-              placeholder="搜索帖子、标签和用户"
+              placeholder="搜索帖子"
               rounded
               clearable
               @keyup.enter.native="search()"
