@@ -41,7 +41,7 @@ const routes = [
     component: () => import('@/views/post/Edit'),
     meta: {
       title: '编辑',
-      requireAuth: true
+      requireAuth: true // 权限认证
     }
   },
   // 详情
@@ -76,7 +76,7 @@ const routes = [
     name: 'user-setting',
     path: '/member/:username/setting',
     component: () => import('@/views/user/Setting'),
-    meta: { title: '设置', requireAuth: true }
+    meta: { title: '设置', requireAuth: true } // 权限认证
   },
   {
     path: '*',

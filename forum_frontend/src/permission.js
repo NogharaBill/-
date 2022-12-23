@@ -26,12 +26,12 @@ router.beforeEach(async (to, from, next) => {
             await store.dispatch('user/getInfo')
             next()
         }
-    } else if (!to.meta.requireAuth)
+    } else if (!to.meta.requireAuth) // 权限认证
     {
         next()
     }
     else {
-        next('/login')
+        next('/login') // 验证不通过则跳往发帖页面
     }
 })
 
